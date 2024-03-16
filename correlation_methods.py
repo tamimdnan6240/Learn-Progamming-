@@ -33,3 +33,23 @@ def calculate_corr_columns(df, threshold_value):
     plt.show()
 
     return find_corr_columns, corre_matrix
+
+def calculate_corr_columns(df, column, threshold_value):
+    corr_series = df.corrwith(df[column], method='pearson').sort_values()
+    data_corr_ = corr_series.to_frame(name=f'Correlation with {column}')
+
+    find_corr_columns = []
+
+    for index, row in data_corr_.iterrows():
+        value = row[row.index != index] > threshold_value
+        if value.any():
+            find_corr_columns.append(index)
+
+    plt.figure(figsize=(12, 8))
+    
+    sns.heatmap(data_corr_, annot=True, cmap="RdYlGn", cbar=True, fmt=".2f")
+    plt.title('Correlation Matrix')
+    plt.show()
+
+    return find_corr_columns
+
