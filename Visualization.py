@@ -44,3 +44,37 @@ fig.tight_layout()  # Adjust layout to prevent clipping.
 
 ## Show the Plot: 
 plt.show()  # Display the plot.
+
+
+### Problem -2: 
+import matplotlib.pyplot as plt
+
+# Step 1: Count the unique elements and their frequencies
+source_title_counts = yes_dataset['Source title'].value_counts()
+
+# Step 2: Limit the number of source titles shown (e.g., top 20)
+top_source_title_counts = source_title_counts.head(20)
+
+# Step 3: Create a horizontal bar plot with the top source titles
+fig, ax = plt.subplots(figsize=(10, 8))
+top_source_title_counts.plot(kind='barh', ax=ax)
+
+# Step 4: Add labels and title
+ax.set_xlabel('Count', fontsize=12, fontname='Times New Roman')
+ax.set_ylabel('Source title', fontsize=12, fontname='Times New Roman')
+ax.set_title('Top 20 Source Titles in yes_dataset', fontsize=14, fontname='Times New Roman')
+
+# Step 5: Add values on top of each bar
+for i in ax.patches:
+    ax.text(i.get_width() + 0.3,  # Adjust the position of the text
+             i.get_y() + i.get_height() / 2,
+             str(int(i.get_width())),
+             fontsize=10,
+             color='black',
+             va='center',
+             fontname='Times New Roman')
+
+# Step 6: Adjust layout for better fit and display the plot
+plt.tight_layout()
+plt.show()
+
